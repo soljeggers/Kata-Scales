@@ -2,42 +2,40 @@ class BalanceNotPossibleException extends Exception
 
 object ScaleBalancer {
 
-  def balance(input: String): String = {
 
+  def balance(input: String): String = {
 
     val fList = input.split("]\\,\\[").head.replaceAll("\\[", "").replace(",", "").replace(" ", "").map(c => c.toString.toInt).toList
 
     val sList = input.split("]\\,\\[").tail.head
       .replaceAll("\\]", "").replace(",", "").replace(" ", "").map(c => c.toString.toInt).toList
 
-    val x = fList(0)
-
+    val x = fList.head
     val y = fList(1)
 
-    val checkList1 : List[Int] = sList.map(_ + x)
+    val checkList1: List[Int] = sList.map(_ + x)
     val checkListX = (x :: checkList1).toSet
 
-    val checkList2 : List[Int] = sList.map(_ + y)
-
+    val checkList2: List[Int] = sList.map(_ + y)
     val checkListY = (y :: checkList2).toSet
 
-    val m = checkListX.filter(checkListY).head
-    val value1 = m - x
-    val value2 = m - y
-
-    if (value1 == 0){
-      s"$value2"
-    } else if (value2 == 0) {
-      s"$value1"
-    } else {
-      s"$value1,$value2"
+    val m = checkListX.filter(checkListY)
+    if (m.isEmpty) {
+      throw new BalanceNotPossibleException
     }
 
-    s"$value1,$value2"
+    val a = m.head - x
+    val b = m.head - y
 
 
+    if (b == 0) {
+      s"$a"
+    } else if (a == 0) {
+      s"$b"
+    } else {
+      s"$a,$b"
+    }
   }
-
 }
 
 /*

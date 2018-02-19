@@ -1,6 +1,6 @@
 import org.scalatest.{MustMatchers, WordSpec}
 
-class ScalesBalancer extends WordSpec with MustMatchers {
+class ScalesBalancerSpec extends WordSpec with MustMatchers {
 
   "balance" must {
 
@@ -25,9 +25,8 @@ class ScalesBalancer extends WordSpec with MustMatchers {
     }
 
     "throw a BalanceNotPossibleException when given the input '[4,7], [1,4]" in {
-      intercept[BalanceNotPossibleException] {
-        ScaleBalancer.balance("[4,7],[1,4]")
-      }
+        ScaleBalancer.balance("[4,7],[1,4]") mustEqual "4,1"
+
     }
 
   }
