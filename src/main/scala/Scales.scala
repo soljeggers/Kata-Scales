@@ -1,9 +1,13 @@
 class BalanceNotPossibleException extends Exception
 
-object ScaleBalancer {
+object ScaleBalancer extends App {
 
 
   def balance(input: String): String = {
+
+    val fListRegex = "[0-9]+".r
+
+
 
     val fList = input.split("]\\,\\[").head.replaceAll("\\[", "").replace(",", "").replace(" ", "").map(c => c.toString.toInt).toList
 
@@ -26,6 +30,8 @@ object ScaleBalancer {
 
     val a = m.head - x
     val b = m.head - y
+
+    println(m)
 
 
     if (b == 0) {

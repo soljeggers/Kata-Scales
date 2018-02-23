@@ -2,32 +2,20 @@
 //  ScaleBalancer.balance("[5,9],[1,2,6,7]") mustEqual "6,2"
 //}
 
-val input = "[3,4],[10]"
+val input = "[5,9],[1,2,6,7]"
 
-val fList = input.split("]\\, \\[").head.replaceAll("\\[", "").replace(",", "").replace(" ", "").map(c => c.toString.toInt).toList
+val fListRegex = "[0-9]+".r
 
-val sList = input.split("]\\, \\[").tail.head
-  .replaceAll("\\]", "").replace(",", "").replace(" ", "").map(c => c.toString.toInt).toList
-
-val x = fList.head
-
-val y = fList(1)
-
-val checkList1 : List[Int] = sList.map(_ + x)
-val checkListX = (x :: checkList1).toSet
+val fList = fListRegex.findAllMatchIn(input).toList.splitAt(2)
 
 
-val checkList2 : List[Int] = sList.map(_ + y)
+val x = fList._2
+val y = fList._1
 
-val checkListY = (y :: checkList2).toSet
 
-val m = checkListX.filter(checkListY).head
+println(y)
+println(x)
 
-val a = m - x
-
-val b = m - y
-
-s"$a"
 
 
 
